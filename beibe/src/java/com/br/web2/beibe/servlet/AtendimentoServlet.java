@@ -4,6 +4,15 @@
  */
 package com.br.web2.beibe.servlet;
 
+import com.br.web2.beibe.bean.Atendimento;
+import com.br.web2.beibe.bean.AtendimentoStatus;
+import com.br.web2.beibe.bean.Produto;
+import com.br.web2.beibe.bean.TipoAtendimento;
+import com.br.web2.beibe.bean.Usuario;
+import com.br.web2.beibe.facade.AtendimentoFacade;
+import com.br.web2.beibe.facade.ProdutoFacade;
+import com.br.web2.beibe.facade.TipoAtendimentoFacade;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +20,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -31,19 +41,125 @@ public class AtendimentoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AtendimentoServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AtendimentoServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+            String action = request.getParameter("action");
+        
+        if (action == null) {
+            request.setAttribute("mensagem", "Invocação inválida: action é nulo");
+            RequestDispatcher rd = request.getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
+            return;
+        }
+        
+        switch (action) {
+            case "novoAtendimento": 
+                {
+                    HttpSession session = request.getSession();
+                    
+                    try {
+                       String tipoAtendimentoJsp = request.getParameter("tipoAtendimento");
+                       String produtoJsp = request.getParameter("produto");
+                       String descricao = request.getParameter("descricao");
+
+                        if (tipoAtendimentoJsp.isEmpty() || produtoJsp.isEmpty() || descricao.isEmpty()) {
+                            request.setAttribute("mensagem", "Nenhum campo pode estar vazio");
+                            RequestDispatcher rd = request.getRequestDispatcher("modules/cliente/portalClienteMsg.jsp");
+                            rd.forward(request, response);
+                            return;
+                        }
+
+                       
+                       Usuario usuario = (Usuario) session.getAttribute("usuario");
+                       int idTipoAtendimento = Integer.parseInt(tipoAtendimentoJsp);
+                       int idProduto = Integer.parseInt(produtoJsp);
+                       int idStatus = 1;
+
+                     //  TipoAtendimento tipoAtendimento = TipoAtendimentoFacade.buscarPorId(idTipoAtendimento);
+                   //    Produto produto = ProdutoFacade.buscarPorId(idProduto);
+                   //    AtendimentoStatus atendimentoStatus = AtendimentoStatusFacade.buscarPorId(idStatus);
+                       Atendimento atendimento = new Atendimento();
+                    //   atendimento.setProduto(produto);
+                    //   atendimento.setStatus(atendimentoStatus);
+                    //   atendimento.setTipoAtendimento(tipoAtendimento);
+                       atendimento.setUsuario(usuario);
+                       atendimento.setDescricao(descricao);
+                  //     AtendimentoFacade.criarNovoAtendimento(atendimento);
+
+                       session.setAttribute("mensagemSucesso", "Novo atendimento cadastrado com sucesso");
+                       session.setAttribute("pagina", "modules/cliente/listarAtendimentos.jsp");
+                       response.sendRedirect("modules/cliente/portalClienteMsg.jsp");
+                       return;
+                   } catch (ServletException | IOException | NumberFormatException  ex) {
+                       session.setAttribute("mensagemErro", ex.getMessage());
+                       response.sendRedirect("modules/cliente/portalClienteMsg.jsp");
+                       return;
+                   }
+                }
+            case ("maisInformacoes"):
+                {
+                    try {
+                        String id = request.getParameter("id");
+
+                        if (id == null) {
+                            request.setAttribute("mensagem", "Invocação inválida: ID é nulo");
+                            RequestDispatcher rd = request.getRequestDispatcher("/erro.jsp");
+                            rd.forward(request, response);
+                            return;
+                        }
+
+                        int idAtendimento = Integer.parseInt(id);
+               //         Atendimento atendimento = AtendimentoFacade.buscarPorId(idAtendimento);
+
+                    //    request.setAttribute("atendimento", atendimento);  
+                        RequestDispatcher rd = request.getRequestDispatcher("modules/cliente/atendimentoMaisInformacoes.jsp");
+                        rd.forward(request, response);
+                        return;
+                    } catch (ServletException | IOException | NumberFormatException ex) {
+                        request.setAttribute("mensagemErro", ex.getMessage());
+                        RequestDispatcher rd = request.getRequestDispatcher("modules/cliente/portalClienteMsg.jsp");
+                        rd.forward(request, response);
+                        return;
+                    }
+                }
+            case ("removerAtendimento"):
+                {
+                    try {
+                        String id = request.getParameter("id");
+
+                        if (id == null) {
+                            request.setAttribute("mensagem", "Invocação inválida: ID é nulo");
+                            RequestDispatcher rd = request.getRequestDispatcher("/erro.jsp");
+                            rd.forward(request, response);
+                            return;
+                        }
+
+                        int idAtendimento = Integer.parseInt(id);
+                   //     AtendimentoFacade.deletarAtendimentoPorId(idAtendimento);
+
+                        HttpSession session = request.getSession();    
+                        session.setAttribute("mensagemSucesso", "Atendimento removido com sucesso - ID: " + id );
+                        session.setAttribute("pagina", "modules/cliente/listarAtendimentos.jsp");
+                        response.sendRedirect("modules/cliente/portalClienteMsg.jsp");
+                        return;
+                    } catch (ServletException | IOException | NumberFormatException ex) {
+                        request.setAttribute("mensagemErro", ex.getMessage());
+                        RequestDispatcher rd = request.getRequestDispatcher("modules/cliente/portalClienteMsg.jsp");
+                        rd.forward(request, response);
+                        return;
+                    }
+                }
+            
+            default:
+                {
+                    request.setAttribute("mensagem", "Erro ao encontrar a action: " + action);
+                    request.setAttribute("pagina", "index.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+                    rd.forward(request, response);
+                }
+
         }
     }
+  
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

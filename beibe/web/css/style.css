@@ -9,18 +9,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 @media (min-width: 1920px) {
     .screen {
-        height: 1080px;
+        min-height: 1080px;
     }
 }
 
 @media (max-width: 1680px) {
     .screen {
-        height: 900px
+        min-height: 900px
     }
 }
 @media (max-width: 1366px) {
     .screen {
-        height: 768px;
+        min-height: 768px;
     }
 }
 

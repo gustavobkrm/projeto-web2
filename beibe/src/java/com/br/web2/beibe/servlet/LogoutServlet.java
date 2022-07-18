@@ -4,6 +4,7 @@
  */
 package com.br.web2.beibe.servlet;
 
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -31,17 +32,21 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LogoutServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LogoutServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        RequestDispatcher rd = request.getRequestDispatcher("./index.jsp");
+        
+        try {
+            if (request.getSession() != null) {
+                request.getSession().invalidate();
+                request.setAttribute("mensagem", "Logout realizado com sucesso");
+                rd.forward(request, response);
+            } else {
+                request.setAttribute("mensagem", "Não foi possível realizer logout");
+                rd.forward(request, response);
+            }
+        } catch (IOException | ServletException e) {
+            request.setAttribute("mensagem", "Não foi possível realizar logout" + e.getMessage());
+            rd.forward(request, response);
         }
     }
 
