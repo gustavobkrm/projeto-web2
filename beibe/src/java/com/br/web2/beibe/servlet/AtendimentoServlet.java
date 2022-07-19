@@ -9,9 +9,6 @@ import com.br.web2.beibe.bean.AtendimentoStatus;
 import com.br.web2.beibe.bean.Produto;
 import com.br.web2.beibe.bean.TipoAtendimento;
 import com.br.web2.beibe.bean.Usuario;
-import com.br.web2.beibe.facade.AtendimentoFacade;
-import com.br.web2.beibe.facade.ProdutoFacade;
-import com.br.web2.beibe.facade.TipoAtendimentoFacade;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,7 +49,7 @@ public class AtendimentoServlet extends HttpServlet {
         }
         
         switch (action) {
-            case "novoAtendimento": 
+            case "create": 
                 {
                     HttpSession session = request.getSession();
                     
@@ -60,36 +57,11 @@ public class AtendimentoServlet extends HttpServlet {
                        String tipoAtendimentoJsp = request.getParameter("tipoAtendimento");
                        String produtoJsp = request.getParameter("produto");
                        String descricao = request.getParameter("descricao");
+   
 
-                        if (tipoAtendimentoJsp.isEmpty() || produtoJsp.isEmpty() || descricao.isEmpty()) {
-                            request.setAttribute("mensagem", "Nenhum campo pode estar vazio");
-                            RequestDispatcher rd = request.getRequestDispatcher("modules/cliente/portalClienteMsg.jsp");
-                            rd.forward(request, response);
-                            return;
-                        }
-
-                       
-                       Usuario usuario = (Usuario) session.getAttribute("usuario");
-                       int idTipoAtendimento = Integer.parseInt(tipoAtendimentoJsp);
-                       int idProduto = Integer.parseInt(produtoJsp);
-                       int idStatus = 1;
-
-                     //  TipoAtendimento tipoAtendimento = TipoAtendimentoFacade.buscarPorId(idTipoAtendimento);
-                   //    Produto produto = ProdutoFacade.buscarPorId(idProduto);
-                   //    AtendimentoStatus atendimentoStatus = AtendimentoStatusFacade.buscarPorId(idStatus);
-                       Atendimento atendimento = new Atendimento();
-                    //   atendimento.setProduto(produto);
-                    //   atendimento.setStatus(atendimentoStatus);
-                    //   atendimento.setTipoAtendimento(tipoAtendimento);
-                       atendimento.setUsuario(usuario);
-                       atendimento.setDescricao(descricao);
-                  //     AtendimentoFacade.criarNovoAtendimento(atendimento);
-
-                       session.setAttribute("mensagemSucesso", "Novo atendimento cadastrado com sucesso");
-                       session.setAttribute("pagina", "modules/cliente/listarAtendimentos.jsp");
-                       response.sendRedirect("modules/cliente/portalClienteMsg.jsp");
+                       response.sendRedirect("atendimento/atendimento.jsp");
                        return;
-                   } catch (ServletException | IOException | NumberFormatException  ex) {
+                   } catch (IOException | NumberFormatException  ex) {
                        session.setAttribute("mensagemErro", ex.getMessage());
                        response.sendRedirect("modules/cliente/portalClienteMsg.jsp");
                        return;

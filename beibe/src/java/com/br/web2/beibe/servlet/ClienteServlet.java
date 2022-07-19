@@ -4,6 +4,7 @@
  */
 package com.br.web2.beibe.servlet;
 
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,17 +34,25 @@ public class ClienteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ClienteServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ClienteServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
+            RequestDispatcher rd;
+             String action = request.getParameter("action");
+             
+            switch (action) {
+
+                    case "buscaUsuario":
+                            rd = getServletContext().getRequestDispatcher("/cliente/clientePerfil.jsp");
+                            rd.forward(request, response);
+
+                        break;
+
+                    case "remove":
+                        //UsuarioFacade.remover(id);
+                        rd = getServletContext().getRequestDispatcher("/ClienteServlet?action=list");
+                        rd.forward(request, response);
+                        break;
+                }
         }
     }
 
