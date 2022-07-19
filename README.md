@@ -30,7 +30,7 @@ Tela funcionario <br>
 ====================================================== <br>
 
 Tela gerente <br>
--> cadastro de funcionários/gerentes ⌛ <br>
+-> cadastro de funcionários/gerentes ✅ <br>
 -> Listagem de todos os atendimentos em Aberto ❌ <br>
 -> Listagem de todos os atendimentos ❌ <br>
 -> relatório de funcionários ✅<br>
