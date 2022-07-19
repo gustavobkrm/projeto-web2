@@ -36,14 +36,14 @@
                         <c:if test="${ nivel eq 1 }" var="res">
                             <li class="bg-dark list-group-item list-group-item-action">
                                 <span class="mdi mdi-home-outline"></span>
-                                <a href="GerenteServlet?action=dashboard">Dashboard</a>
+                                <a href="gerente.jsp">Dashboard</a>
                             </li>
                             <li class="bg-dark list-group-item list-group-item-action">
                                 <span class="mdi mdi-account-multiple-outline"></span>
-                                <a href="GerenteServlet?action=listarUsuarios">Usuarios</a>
+                                <a href="GerenteServlet?action=list">Funcionário/Gerente</a>
                             </li>
                         </c:if>
-                        <c:if test="${ nivel eq 1 || nivel eq 2 }" var="res">
+                        <c:if test="${ nivel eq 1 }" var="res">
                             <li class="bg-dark list-group-item list-group-item-action">
                                 <span class="mdi mdi-file-document"></span>
                                 <a href="AtendimentoServlet?action=listarAtendimentos">Atendimentos</a>
@@ -51,18 +51,6 @@
                             <li class="bg-dark list-group-item list-group-item-action">
                                 <span class="mdi mdi-file-document"></span>
                                 <a href="AtendimentoServlet?action=listarAtendimentosAbertos">Atendimentos em aberto</a>
-                            </li>
-                        </c:if>
-                        <c:if test="${ nivel eq 2 }" var="res">
-                            <li class="bg-dark list-group-item list-group-item-action">
-                                <span class="mdi mdi-account-multiple-outline"></span>
-                                <a href="ProdutosServlet?action=inserirProduto">Cadastro Produtos</a>
-                            </li>
-
-
-                            <li class="bg-dark list-group-item list-group-item-action">
-                                <span class="mdi mdi-account-multiple-outline"></span>
-                                <a href="ProdutosServlet?action=inserirCategoria">Cadastro Categorias </a>
                             </li>
                         </c:if>
                         <li class="bg-dark list-group-item list-group-item-action">
@@ -76,7 +64,7 @@
                     <div class="col-md-12 mb-3 mt-5">
                         <h3>Dashboard</h3>
                         <c:forEach var="tipo" items="${atendimentostipos}">
-                            <h1> ${tipo.nome}: ${tipo.quantidadeAbertos}/${tipo.quantidade} </h1>
+                            <h1> ${tipo.nome} ${tipo.quantidadeAbertos} ${tipo.quantidade} </h1>
                         </c:forEach>
                     </div>
                     <div class="row p-3">

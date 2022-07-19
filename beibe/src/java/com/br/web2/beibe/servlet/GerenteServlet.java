@@ -4,8 +4,6 @@
  */
 package com.br.web2.beibe.servlet;
 
-import com.br.web2.beibe.bean.Atendimento;
-import com.br.web2.beibe.bean.Usuario;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,14 +13,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  *
  * @author paula
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "GerenteServlet", urlPatterns = {"/GerenteServlet"})
+public class GerenteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,57 +32,23 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        
-        if (email.isEmpty() || senha.isEmpty()) {
-            request.setAttribute("mensagem", "Nenhum campo pode estar vazio");
-            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-            rd.forward(request, response);
-            return;
-        }
-        
-        try {
-            Usuario usuario = new Usuario();
-            int nivel = 1;
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+           HttpSession session = request.getSession();
+            RequestDispatcher rd;
             
-            if (email.equals(senha)) {
-                HttpSession session = request.getSession();
-                usuario.setSenha(null);
-                session.setAttribute("logado", true);
-                session.setAttribute("usuario", usuario);
-                switch (nivel) {
-                    case 1:
-                        {
-                            response.sendRedirect("gerente.jsp");
-                            return;
-                        }
-                    case 2:
-                        {
-                            response.sendRedirect("funcionario.jsp");
-                            return;
-                        }
-                    case 3:
-                        {  
-                            RequestDispatcher rd = request.getRequestDispatcher("cliente.jsp");
+            String action = request.getParameter("action");
+            switch (action) {
+                    case "list":
+                        rd = getServletContext().getRequestDispatcher("/funcionario/listarFuncionario.jsp");
+                        rd.forward(request, response);
+                    break;
+
+                    case "create":
+                            rd = getServletContext().getRequestDispatcher("/funcionario/criarFuncionario.jsp");
                             rd.forward(request, response);
-                            return;
-                        }
-                    default: 
-                        {
-                            request.setAttribute("mensagem", "Não foi possível identificar usuário!");
-                            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-                            rd.forward(request, response);
-                            return;
-                        }
-                }
+                    break;
             }
-            request.setAttribute("mensagem", "E-mail ou senha incorretos!");
-            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-            rd.forward(request, response);
-        } catch(Exception  err){
-            System.out.println(err);
         }
     }
 
