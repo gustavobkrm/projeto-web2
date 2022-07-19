@@ -59,7 +59,80 @@
                         </li>
                     </ul>
                 </div>
-                            
+
+                <section class="bg-light col-md-10">
+                    <div class="container mt-5">
+                        <div class="d-flex justify-content-center">
+                            <h1>Cadastro</h1>
+                        </div>
+                        <div class=" d-flex justify-content-center">
+                            <form class="w-100 row" action="FuncionarioServlet?action=${ac}" method="POST">
+                                <div class="col-12">
+                                    <label > Nome completo </label>
+                                    <input class="form-control mb-3" type="text" name="nome" required value="${funcionario.nomeUsuario}" minlength="5" maxlength="45"/>
+                                </div>
+                                <div class="col-12">
+                                    <label> CPF </label>
+                                    <input  class="form-control mb-3 cpf" type="text" name="cpf" required value="${funcionario.cpf}" minlength="11" maxlength="11"/>
+                                </div>   
+                                <div class="col-6">    
+                                    <label> Email </label>
+                                    <input  class="form-control mb-3 email" type="text" name="email" required value="${funcionario.email}"/>
+                                </div>    
+                                <div class="col-6">    
+                                    <label> Senha </label>
+                                    <input  class="form-control mb-3 email" type="password" name="passwd" required  minlength="8" maxlength="8" value="${funcionario.password}"/>
+                                </div>   
+                                <div class="col-12">
+                                    <label> Telefone </label>
+                                    <input  class="form-control mb-3 phone_with_ddd" type="text" name="telefone" required value="${funcionario.telefone}" minlength="11" maxlength="11">
+                                </div>    
+                                <div class="col-8">    
+                                    <label> Endereço </label>
+                                    <input  class="form-control mb-3" type="text" name="endereco" required value="${funcionario.nomeRua}" minlength="5" maxlength="45">
+                                </div>
+                                <div class="col-4">
+                                    <label> Número </label>
+                                    <input  class="form-control mb-3" type="text" name="nrua" required value="${funcionario.numeroRua}">
+                                </div>
+                                <div class="col-12">
+                                    <label> Complemento </label>
+                                    <input  class="form-control mb-3" type="text" name="complemento" required value="${funcionario.complemento}" minlength="5" maxlength="45">
+                                </div>
+                                <div class="col-6">
+                                    <label> Bairro </label>
+                                    <input  class="form-control mb-3" type="text" name="bairro" required value="${funcionario.bairro}" minlength="5" maxlength="45">
+                                </div>
+                                <div class="col-6">
+                                    <label> CEP </label>
+                                    <input  class="form-control mb-3 cep" type="text" name="cep" required value="${funcionario.cep}" minlength="8" maxlength="8">
+                                </div>
+                                <div class="col-6">
+                                    <label> UF </label>
+                                    <input  class="form-control mb-3" type="text" name="uf" required value="${funcionario.uf}" minlength="2" maxlength="8">
+                                </div>
+                                <div class="col-6">
+                                    <label> Cidade </label>
+                                    <input  class="form-control mb-3" type="text" name="cidade" required value="${funcionario.cidade}" minlength="2" maxlength="45">
+                                </div>
+                                <div class="col-12">
+                                    <label for="cargo"> Cargo </label>
+                                    <select class="form-control mb-3" type="text" id="cargo" name="cargo">
+                                        <option value="Funcionario">Funcionário</option>
+                                        <option value="Gerente">Gerente</option>
+                                    </select>
+                                    <input type="text" name="id" value="${funcionario.idUsuario}" hidden>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-center mt-5">
+                                        <a href="/beibe/funcionario/listarFuncionario.jsp" class="btn btn-danger w-25 mr-3" type="submit">Cancelar</a>
+                                        <input class="btn btn-primary w-25 ml-3" type="submit" value="Salvar"> 
+                                    </div> 
+                                </div>
+                            </form>
+                        </div> 
+                    </div>                           
+                </section>
             </div>
         </div>
     </body>
