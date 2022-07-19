@@ -38,100 +38,34 @@ public class AtendimentoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-            String action = request.getParameter("action");
-        
-        if (action == null) {
-            request.setAttribute("mensagem", "Invocação inválida: action é nulo");
-            RequestDispatcher rd = request.getRequestDispatcher("/erro.jsp");
-            rd.forward(request, response);
-            return;
-        }
-        
+
+        String action = request.getParameter("action");
+        RequestDispatcher rd;
+
         switch (action) {
-            case "create": 
-                {
-                    HttpSession session = request.getSession();
-                    
-                    try {
-                       String tipoAtendimentoJsp = request.getParameter("tipoAtendimento");
-                       String produtoJsp = request.getParameter("produto");
-                       String descricao = request.getParameter("descricao");
-   
+            case "create": {
 
-                       response.sendRedirect("atendimento/atendimento.jsp");
-                       return;
-                   } catch (IOException | NumberFormatException  ex) {
-                       session.setAttribute("mensagemErro", ex.getMessage());
-                       response.sendRedirect("modules/cliente/portalClienteMsg.jsp");
-                       return;
-                   }
-                }
-            case ("maisInformacoes"):
-                {
-                    try {
-                        String id = request.getParameter("id");
-
-                        if (id == null) {
-                            request.setAttribute("mensagem", "Invocação inválida: ID é nulo");
-                            RequestDispatcher rd = request.getRequestDispatcher("/erro.jsp");
-                            rd.forward(request, response);
-                            return;
-                        }
-
-                        int idAtendimento = Integer.parseInt(id);
-               //         Atendimento atendimento = AtendimentoFacade.buscarPorId(idAtendimento);
-
-                    //    request.setAttribute("atendimento", atendimento);  
-                        RequestDispatcher rd = request.getRequestDispatcher("modules/cliente/atendimentoMaisInformacoes.jsp");
-                        rd.forward(request, response);
-                        return;
-                    } catch (ServletException | IOException | NumberFormatException ex) {
-                        request.setAttribute("mensagemErro", ex.getMessage());
-                        RequestDispatcher rd = request.getRequestDispatcher("modules/cliente/portalClienteMsg.jsp");
-                        rd.forward(request, response);
-                        return;
-                    }
-                }
-            case ("removerAtendimento"):
-                {
-                    try {
-                        String id = request.getParameter("id");
-
-                        if (id == null) {
-                            request.setAttribute("mensagem", "Invocação inválida: ID é nulo");
-                            RequestDispatcher rd = request.getRequestDispatcher("/erro.jsp");
-                            rd.forward(request, response);
-                            return;
-                        }
-
-                        int idAtendimento = Integer.parseInt(id);
-                   //     AtendimentoFacade.deletarAtendimentoPorId(idAtendimento);
-
-                        HttpSession session = request.getSession();    
-                        session.setAttribute("mensagemSucesso", "Atendimento removido com sucesso - ID: " + id );
-                        session.setAttribute("pagina", "modules/cliente/listarAtendimentos.jsp");
-                        response.sendRedirect("modules/cliente/portalClienteMsg.jsp");
-                        return;
-                    } catch (ServletException | IOException | NumberFormatException ex) {
-                        request.setAttribute("mensagemErro", ex.getMessage());
-                        RequestDispatcher rd = request.getRequestDispatcher("modules/cliente/portalClienteMsg.jsp");
-                        rd.forward(request, response);
-                        return;
-                    }
-                }
-            
-            default:
-                {
-                    request.setAttribute("mensagem", "Erro ao encontrar a action: " + action);
-                    request.setAttribute("pagina", "index.jsp");
-                    RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
-                    rd.forward(request, response);
-                }
-
+                rd = getServletContext().getRequestDispatcher("atendimento/atendimento.jsp");
+                rd.forward(request, response);
+                break;
+            }
+            case ("list"): {
+                rd = getServletContext().getRequestDispatcher("/cliente.jsp");
+                rd.forward(request, response);
+                break;
+            }
+            case ("listarAtendimentos"): {
+                rd = getServletContext().getRequestDispatcher("/atendimento/todosAtendimentos.jsp");
+                rd.forward(request, response);
+                break;
+            }
+            case ("listarAtendimentosAbertos") : {
+               rd = getServletContext().getRequestDispatcher("/atendimento/atendimentosAbertos.jsp");
+                rd.forward(request, response);
+                break; 
+            }
         }
     }
-  
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
