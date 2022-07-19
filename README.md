@@ -21,8 +21,8 @@ Tela cliente <br>
 ====================================================== <br>
 
 Tela funcionario <br>
--> Listagem de todos os atendimentos em Aberto ❌<br>
--> Listagem de todos os atendimentos ❌<br>
+-> Listagem de todos os atendimentos em Aberto ✅<br>
+-> Listagem de todos os atendimentos ✅<br>
 -> Resolução do atendimento ❌ <br>
 -> Cadastro de Categorias ❌ <br>
 -> Cadastro de Produtos ❌ <br>
@@ -31,8 +31,8 @@ Tela funcionario <br>
 
 Tela gerente <br>
 -> cadastro de funcionários/gerentes ✅ <br>
--> Listagem de todos os atendimentos em Aberto ❌ <br>
--> Listagem de todos os atendimentos ❌ <br>
+-> Listagem de todos os atendimentos em Aberto ✅ <br>
+-> Listagem de todos os atendimentos ✅ <br>
 -> relatório de funcionários ✅<br>
 -> relatório de produtos mais reclamados ✅<br>
 -> relatório de atendimentos em aberto por data ✅ <br>
