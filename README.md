@@ -1,5 +1,13 @@
 # projeto-web2
 
+<h3>Instruções de acesso:</h3>
+<h4>Login e senha devem ser IGUAIS</h4>
+<h4>Para trocar o tipo de usuário:<h4>
+<h4>-> acessar LoginServlet</h4>
+<h4>-> trocar o valor da variável <i>"nivel"</i></h4>
+<h4>  1 : gerente</h4>
+<h4>  2 : funcionario</h4>
+<h4>  3 : cliente</h4><br><br>
 <h1> Telas a fazer: </h1><br>
 ====================================================== <br>
 Tela de Login ✅<br>
@@ -22,7 +30,7 @@ Tela funcionario <br>
 ====================================================== <br>
 
 Tela gerente <br>
--> cadastro de funcionários/gerentes ❌ <br>
+-> cadastro de funcionários/gerentes ⌛ <br>
 -> Listagem de todos os atendimentos em Aberto ❌ <br>
 -> Listagem de todos os atendimentos ❌ <br>
 -> relatório de funcionários ✅<br>
