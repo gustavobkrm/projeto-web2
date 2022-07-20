@@ -36,7 +36,7 @@
                         <c:if test="${ nivel eq 1 }" var="res">
                             <li class="bg-dark list-group-item list-group-item-action">
                                 <span class="mdi mdi-home-outline"></span>
-                                <a href="gerente.jsp">Dashboard</a>
+                                <a href="GerenteServlet?action=dashboard">Dashboard</a>
                             </li>
                             <li class="bg-dark list-group-item list-group-item-action">
                                 <span class="mdi mdi-account-multiple-outline"></span>

@@ -33,21 +33,28 @@ public class GerenteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-           HttpSession session = request.getSession();
+        try ( PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
             RequestDispatcher rd;
-            
+
             String action = request.getParameter("action");
             switch (action) {
-                    case "list":
-                        rd = getServletContext().getRequestDispatcher("/funcionario/listarFuncionario.jsp");
-                        rd.forward(request, response);
+                case "dashboard" : {
+                    rd = getServletContext().getRequestDispatcher("/gerente.jsp");
+                    rd.forward(request, response);
                     break;
+                }
+                case "list": {
+                    rd = getServletContext().getRequestDispatcher("/funcionario/listarFuncionario.jsp");
+                    rd.forward(request, response);
+                    break;
+                }
+                case "create": {
+                    rd = getServletContext().getRequestDispatcher("/funcionario/criarFuncionario.jsp");
+                    rd.forward(request, response);
+                    break;
+                }
 
-                    case "create":
-                            rd = getServletContext().getRequestDispatcher("/funcionario/criarFuncionario.jsp");
-                            rd.forward(request, response);
-                    break;
             }
         }
     }

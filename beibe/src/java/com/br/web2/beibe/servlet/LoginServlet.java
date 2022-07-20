@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
         
         try {
             Usuario usuario = new Usuario();
-            int nivel = 2;
+            int nivel = 1;
             
             if (email.equals(senha)) {
                 HttpSession session = request.getSession();

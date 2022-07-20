@@ -36,7 +36,7 @@
                         <c:if test="${ nivel eq 1 }" var="res">
                             <li class="bg-dark list-group-item list-group-item-action">
                                 <span class="mdi mdi-home-outline"></span>
-                                <a href="gerente.jsp">Dashboard</a>
+                                <a href="GerenteServlet?action=dashboard">Dashboard</a>
                             </li>
                             <li class="bg-dark list-group-item list-group-item-action">
                                 <span class="mdi mdi-account-multiple-outline"></span>
@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="d-flex justify-content-center mt-5">
-                                        <a href="/beibe/funcionario/listarFuncionario.jsp" class="btn btn-danger w-25 mr-3" type="submit">Cancelar</a>
+                                        <a href="GerenteServlet?action=list" class="btn btn-danger w-25 mr-3" type="submit">Cancelar</a>
                                         <input class="btn btn-primary w-25 ml-3" type="submit" value="Salvar"> 
                                     </div> 
                                 </div>
