@@ -84,7 +84,7 @@
                                                         <td><c:out value="${atendimento.produto.nomeProduto}" /></td>
                                                         <td><c:out value="${atendimento.usuario.nomeUsuario}"/></td>
                                                         <td>
-                                                            <a  class="mr-3" href="AtendimentoServlet?action=showFunc&id=${atendimento.idAtendimento}">
+                                                            <a  class="mr-3" href="ProdutoServlet?action=resolucao">
                                                                 <button><i class="mdi mdi-comment-processing-outline"></i></button></a>
                                                         </td>
                                                         </tr>

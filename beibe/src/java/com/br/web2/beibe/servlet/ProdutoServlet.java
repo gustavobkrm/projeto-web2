@@ -64,6 +64,11 @@ public class ProdutoServlet extends HttpServlet {
                     rd.forward(request, response);
                     break;
                 }
+                case "resolucao": {
+                    rd = getServletContext().getRequestDispatcher("/resolucao.jsp");
+                    rd.forward(request, response);
+                    break;
+                }
             }
         }
     }

@@ -90,7 +90,7 @@
                                         <td><c:out value="${atendimento.descricaoAtendimento}"/></td>
                                         <td>
                                             <c:if test="${loginBean.tipoUsuario == 'Funcionario'}">
-                                                <a class="mr-3" href="AtendimentoServlet?action=showFunc&id=${atendimento.idAtendimento}"><button>
+                                                <a class="mr-3" href="ProdutoServlet?action=resolucao"><button>
                                                     <i class="mdi mdi-comment-processing-outline"></i></button></a>
                                             </c:if>
                                         </td>
