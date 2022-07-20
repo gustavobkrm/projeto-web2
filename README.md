@@ -24,7 +24,7 @@ Tela funcionario <br>
 -> Listagem de todos os atendimentos em Aberto ✅<br>
 -> Listagem de todos os atendimentos ✅<br>
 -> Resolução do atendimento ✅ <br>
--> Cadastro de Categorias ❌ <br>
+-> Cadastro de Categorias ✅ <br>
 -> Cadastro de Produtos ✅ <br>
 
 ====================================================== <br>
