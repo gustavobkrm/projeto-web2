@@ -1,12 +1,12 @@
 <%-- 
-    Document   : produtos
-    Created on : 12 de jul. de 2022, 15:20:56
+    Document   : atendimentoFuncionario
+    Created on : 20 de jul. de 2022, 02:20:43
     Author     : paula
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="pt">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -59,64 +59,59 @@
                         </li>
                     </ul>
                 </div>
-
-
-                <div class="col-md-10 bg-light">
-                    <div class="col-md-12 mb-3 mt-5">
-                        <h3>Produtos</h3>
-                    </div>
-                    <a class="btn btn-primary mb-3" href="ProdutoServlet?action=novoProduto">
-                        Cadastrar novo produto
-                    </a>
+                <div class="col-10 bg-light">
                     <div class="row p-3">
                         <div class="col-md-12">
                             <div class="card h-100 border-white shadow-sm">
                                 <div class="card-body">
                                     <div class="row justify-content-between">
-                                        <h5 class="text-muted pb-3">Listagem de produtos</h5>
+                                        <h5 class="text-muted p-3">Lista de atendimentos</h5>
                                     </div>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Nome</th>
-                                                <th scope="col">Categoria</th>
-                                                <th scope="col">Descrição</th>
-                                                <th scope="col">Peso</th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <c:forEach var="prod" items="${produtos}">
-                                            <tr>
-                                                <td>${prod.nome}</td>
-                                                <td>${prod.categoria.nome}</td>
-                                                <td>${prod.descricao}</td>
-                                                <td>${prod.peso}</td>
-                                                <td>
-                                                    <div class="dropdown dropleft">
-                                                        <span class="mdi mdi-dots-vertical" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item"  href="ProdutosServlet?action=carregarProduto&id=${prod.idProduto}">
-                                                                <span class="mdi mdi-pencil pr-1"></span>Editar
-                                                            </a>
-                                                            <a class="dropdown-item" href="ProdutosServlet?action=excluirProduto&id=${prod.idProduto}" onclick="confirm()">
-                                                                <span class="mdi mdi-delete pr-1"></span>Excluir
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    <section class="container-fluid">
+                                        <div class='m-2'>
+                                            <c:if test="${!empty todosAtendimentos}">
+                            <table class=' table  text-center'>
+                                <tr>
+                                    <th>Data/hora</th>
+                                    <th>Produto</th>
+                                    <th>Nome do cliente</th>
+                                    <th>Descrição</th>
+                                     <c:if test="${loginBean.tipoUsuario == 'Funcionario'}">
+                                       <th>Detalhes Atendimento</th>
+                                     </c:if>
+                                </tr>
+                                <c:forEach items="${todosAtendimentos}" var="atendimento">
+                                    <tr style="${atendimento.prioridade eq 1 and atendimento.situacao eq 'N' ? 'background-color:#ff3b3b' : 'background-color :#ffff73  '}" >
+                                        <td id="dataAbertura"><fmt:parseDate value="${ atendimento.dataHoraAtendimento }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+                                            <fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" />
+                                        </td>
+                                        <td><c:out value="${atendimento.produto.nomeProduto}" /></td>
+                                        <td><c:out value="${atendimento.usuario.nomeUsuario}"/></td>
+                                        <td><c:out value="${atendimento.descricaoAtendimento}"/></td>
+                                        <td>
+                                            <c:if test="${loginBean.tipoUsuario == 'Funcionario'}">
+                                                <a class="mr-3" href="AtendimentoServlet?action=showFunc&id=${atendimento.idAtendimento}"><button>
+                                                    <i class="mdi mdi-comment-processing-outline"></i></button></a>
+                                            </c:if>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </c:if>
+                                        </div>
+                                        <c:if test="${empty todosAtendimentos}">
+                                            <div class="text-center">
+                                                <p class="m-5 text-secondary h4">Não há atendimentos.</p>  
+                                            </div>    
+                                        </c:if>
+                                        </c:choose>
+                                    </section>                              
+                                </div>  
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        </div>
     </body>
 </html>
