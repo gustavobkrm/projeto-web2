@@ -40,7 +40,7 @@
                             </li>
                             <li class="bg-dark list-group-item list-group-item-action">
                                 <span class="mdi mdi-account-multiple-outline"></span>
-                                <a href="/beibe/funcionario/listarFuncionario.jsp">Funcionário/Gerente</a>
+                                <a href="GerenteServlet?action=list">Funcionário/Gerente</a>
                             </li>
                         </c:if>
                         <c:if test="${ nivel eq 1 }" var="res">
