@@ -45,7 +45,7 @@ public class AtendimentoServlet extends HttpServlet {
         switch (action) {
             case "create": {
 
-                rd = getServletContext().getRequestDispatcher("atendimento/atendimento.jsp");
+                rd = getServletContext().getRequestDispatcher("/atendimento/atendimento.jsp");
                 rd.forward(request, response);
                 break;
             }
